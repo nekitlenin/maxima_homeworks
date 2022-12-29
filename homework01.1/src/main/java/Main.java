@@ -40,5 +40,6 @@ public class Main {
         System.out.println("double - " + d);
         System.out.println("boolean - " + isCheck);
         System.out.println("char - " + c);
+
     }
 }
