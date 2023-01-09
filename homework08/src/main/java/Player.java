@@ -10,12 +10,12 @@ public class Player {
     String name;
     int shore;
     Map map;
-    int[] shipList;
+    Ship[] shipList;
 
     /** Конструкторы */
     public Player(String name) {
         this.name = name;
-        this.shipList = new int[getShipCount()];
+        this.shipList = new Ship[getShipCount()];
     }
 
     public int getShipCount() {
@@ -64,7 +64,7 @@ public class Player {
         this.map = map;
     }
 
-    public int[] getShipList() {
+    public Ship[] getShipList() {
         return shipList;
     }
 }
