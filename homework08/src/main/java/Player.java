@@ -13,16 +13,8 @@ public class Player {
     int[] shipList;
 
     /** Конструкторы */
-    public Player(String name, Map map) {
-        this.name = name;
-        int shore = 0;
-        this.map = map;
-        this.shipList = new int[getShipCount()];
-    }
-
     public Player(String name) {
         this.name = name;
-        int shore = 0;
         this.shipList = new int[getShipCount()];
     }
 
