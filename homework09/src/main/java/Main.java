@@ -13,10 +13,14 @@ public class Main {
 //        menu();
         table();
         fibonacci(5, 1);
+        fibonacci(5, 2);
+        fibonacci(5, 3);
         sumOfNumber(1234, 1);
+        sumOfNumber(1234, 2);
         palindromesCount("aba fas ahahahah 101 5050505");
         luckyTime();
         month(8, 1);
+        month(8, 2);
         decimalToBinary(123);
         degree(5);
         recursionSumOfNumber(12345);
@@ -83,15 +87,15 @@ public class Main {
      * В консоль выведем просто 10
      * * Попробовать решить несколькими вариантами при помощи разных циклов
      */
-    static void sumOfNumber(int num, int forOrWhile) {
+    static void sumOfNumber(int num, int cycleType) {
         int sum = 0;
 
-        if (forOrWhile == 1) {
+        if (cycleType == 1) {
             while (num != 0) {
                 sum += num % 10;
                 num /= 10;
             }
-        } else if (forOrWhile == 2) {
+        } else if (cycleType == 2) {
             for (; num != 0; ) {
                 sum += num % 10;
                 num /= 10;
