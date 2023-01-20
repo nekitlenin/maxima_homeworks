@@ -281,18 +281,21 @@ public class Main {
                         + "2 - while" + '\n'
                         + "3 - do while");
                 fibonacci(len, scanner.nextInt());
-            } if (res == 3) {
+            }
+            if (res == 3) {
                 System.out.print("Введите число: ");
                 int num = scanner.nextInt();
                 System.out.println("Введите вариант цикла:" + '\n'
                         + "1 - for" + '\n'
                         + "2 - while");
                 sumOfNumber(num, scanner.nextInt());
-            } if (res == 4) {
+            }
+            if (res == 4) {
                 System.out.println("Введите набор слов: ");
                 scanner.nextLine();
                 palindromesCount(scanner.nextLine());
-            } if (res == 5)
+            }
+            if (res == 5)
                 luckyTime();
             if (res == 6) {
                 System.out.print("Введите число месяца: ");
@@ -301,16 +304,20 @@ public class Main {
                         + "1 - if" + '\n'
                         + "2 - switch");
                 month(m, scanner.nextInt());
-            } if (res == 7) {
+            }
+            if (res == 7) {
                 System.out.print("Введите десятичное число: ");
                 decimalToBinary(scanner.nextInt());
-            } if (res == 8) {
+            }
+            if (res == 8) {
                 System.out.print("Введите степень: ");
                 degree(scanner.nextInt());
-            } if (res == 9) {
+            }
+            if (res == 9) {
                 System.out.print("Введите число: ");
                 recursionSumOfNumber(scanner.nextInt());
-            } if (res == 0)
+            }
+            if (res == 0)
                 break;
             else
                 System.out.println("Такого задания нет!");
