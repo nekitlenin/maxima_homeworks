@@ -7,51 +7,64 @@
  * Created with IntelliJ IDEA
  */
 public class Ship {
-    static String name1 = "Boat";
-    static String name2 = "Destroyer";
-    static String name3 = "Cruiser";
-    static String name4 = "Battleship";
-    String name;
-    int size;
-    Player player;
+    private static final String BOAT = "Boat";
+    private static final String DESTROYER = "Destroyer";
+    private static final String CRUISER = "Cruiser";
+    private static final String BATTLESHIP = "Battleship";
+    private String name;
+    private int size;
+    private Player player;
 
-    /** Конструкторы */
-    public Ship(String name, int size, Player player) {
-        this.name = name;
-        this.size = size;
-        this.player = player;
-    }
-
-    public Ship(String name, Player player) {
-        this.name = name;
-        this.player = player;
-    }
-
+    /**
+     * Конструкторы
+     */
     public Ship(int size, Player player) {
+        if (size == 1)
+            this.name = BOAT;
+        else if (size == 2)
+            this.name = DESTROYER;
+        else if (size == 3)
+            this.name = CRUISER;
+        else if (size == 4)
+            this.name = BATTLESHIP;
+        else
+            System.err.println("Игрок " + player.name + ", введите размер корабля от 1 до 4");
         this.size = size;
         this.player = player;
     }
 
-    /** Геттер, получить размер корабля
-     * @return size - размер корабля */
+    /**
+     * Геттер, получить размер корабля
+     *
+     * @return size - размер корабля
+     */
     public int getSize() {
         return size;
     }
 
-    /** Сеттер, задать / изменить размер корабля
-     *  @param  size размер корабля */
+    /**
+     * Сеттер, задать / изменить размер корабля
+     *
+     * @param size размер корабля
+     */
     public void setSize(int size) {
         this.size = size;
     }
 
-    /** Геттер, получить имя корабля
-     *  @return name - имя корабля */
+    /**
+     * Геттер, получить имя корабля
+     *
+     * @return name - имя корабля
+     */
     public String getName() {
         return name;
     }
 
-    /** Сеттер, задать / изменить имя корабля
-     * @param name имя корабля */
+    /**
+     * Сеттер, задать / изменить имя корабля
+     *
+     * @param name имя корабля
+     */
     public void setName(String name) {
         this.name = name;
     }

@@ -7,51 +7,67 @@
  * Created with IntelliJ IDEA
  */
 public class Player {
+    private final Ship[] SHIP_LIST;
     String name;
-    int shore;
-    Map map;
-    Ship[] shipList;
+    private int shore;
+    private Map map;
 
-    /** Конструкторы */
+    /**
+     * Конструкторы
+     */
     public Player(String name) {
         this.name = name;
-        this.shipList = new Ship[getShipCount()];
+        this.SHIP_LIST = new Ship[getShipCount()];
     }
 
-    public int getShipCount() {
+    private int getShipCount() {
         int count = 0;
-        for (int i = 0; i < Map.shipCount.length; i++)
-            count += Map.shipCount[i];
+        for (int i = 0; i < Map.SHIP_COUNT.length; i++)
+            count += Map.SHIP_COUNT[i];
         return count;
     }
 
-    /** Метод выстрела по координатам
+    /**
+     * Метод выстрела по координатам
+     *
      * @param x координата x
      * @param y координата y
-     * @return текст выстрела по координатам */
-    public String shoot(int x, int y){
+     * @return текст выстрела по координатам
+     */
+    public String shoot(int x, int y) {
         return "Игрок " + name + " ударил по ячейке " + x + " : " + y;
     }
 
-    /** Геттер, возвращает имя игрока
-     * @return name - имя игрока */
+    /**
+     * Геттер, возвращает имя игрока
+     *
+     * @return name - имя игрока
+     */
     public String getName() {
         return name;
     }
 
-    /** Сеттер для создания / смены имени
-     * @param name имя игрока */
+    /**
+     * Сеттер для создания / смены имени
+     *
+     * @param name имя игрока
+     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /** Геттер, возвращает счёт игрока
-     * @return shore - счёт игрока */
+    /**
+     * Геттер, возвращает счёт игрока
+     *
+     * @return shore - счёт игрока
+     */
     public int getShore() {
         return shore;
     }
 
-    /** Добавляет балл к счёту игрока */
+    /**
+     * Добавляет балл к счёту игрока
+     */
     public void upShore() {
         this.shore++;
     }
@@ -64,9 +80,7 @@ public class Player {
         this.map = map;
     }
 
-    public Ship[] getShipList() {
-        return shipList;
+    public Ship[] getSHIP_LIST() {
+        return SHIP_LIST;
     }
 }
-
-

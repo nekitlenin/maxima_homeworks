@@ -9,23 +9,32 @@
 public class Main {
     public static void main(String[] args) {
         Player nikita = new Player("Nikita");
-        Ship boat = new Ship(Ship.name1, 1, nikita);
-        Ship destroyer = new Ship(Ship.name2, 2, nikita);
-        Ship cruiser = new Ship(Ship.name3, 3, nikita);
-        Ship battleship = new Ship( Ship.name4, 4, nikita);
+//            Ship boat = new Ship(Ship.name1, 1, nikita);
+//            Ship destroyer = new Ship(Ship.name2, 2, nikita);
+//            Ship cruiser = new Ship(Ship.name3, 3, nikita);
+//            Ship battleship = new Ship( Ship.name4, 4, nikita);
+        Ship boat = new Ship(1, nikita);
+        Ship destroyer = new Ship(2, nikita);
+        Ship cruiser = new Ship(3, nikita);
+        Ship battleship = new Ship(4, nikita);
         Map map1 = new Map(nikita);
         nikita.setMap(map1);
         map1.showMap();
-        map1.putBoat(0,0);
-        map1.putBoat(0,1);
-        map1.putBoat(0,2);
+        map1.putBoat(0, 0);
+        map1.putBoat(0, 1);
+        map1.putBoat(0, 2);
         map1.showMap();
 
+//            Player bot = new Player("Bot");
+//            Ship boat2 = new Ship(Ship.name1, 1, bot);
+//            Ship destroyer2 = new Ship(Ship.name2, 2, bot);
+//            Ship cruiser2 = new Ship(Ship.name3, 3, bot);
+//            Ship battleship2 = new Ship( Ship.name4, 4, bot);
         Player bot = new Player("Bot");
-        Ship boat2 = new Ship(Ship.name1, 1, bot);
-        Ship destroyer2 = new Ship(Ship.name2, 2, bot);
-        Ship cruiser2 = new Ship(Ship.name3, 3, bot);
-        Ship battleship2 = new Ship( Ship.name4, 4, bot);
+        Ship boat2 = new Ship(1, bot);
+        Ship destroyer2 = new Ship(2, bot);
+        Ship cruiser2 = new Ship(3, bot);
+        Ship battleship2 = new Ship(4, bot);
         Map map2 = new Map(bot);
         bot.setMap(map2);
         map2.showMap();
@@ -45,4 +54,3 @@ public class Main {
 //        System.out.println("Имя судна - " + battleship.getName() + "; Размер судна - " + battleship.getSize());
     }
 }
-

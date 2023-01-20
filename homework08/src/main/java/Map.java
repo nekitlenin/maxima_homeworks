@@ -9,44 +9,50 @@ import java.util.Arrays;
  * Created with IntelliJ IDEA
  */
 public class Map {
-    static int[] shipCount = {4, 3, 2, 1};
-    int[][] map = new int[10][10];
-    Player player;
+    static final int[] SHIP_COUNT = {4, 3, 2, 1};
+    private final int[][] MAP = new int[10][10];
+    private Player player;
 
-    /** Конструктор */
+    /**
+     * Конструктор
+     */
     public Map(Player player) {
         this.player = player;
     }
 
-    /** Соответственно по умолчанию все ячейки стоят с 0,
-     *  когда вызываем один из 4 методов
-     *  (1.поставить корабль, 2.промах, 3.попадание, 4.убил)
-     *  значение в указанной ячейке меняется на нужный */
+    /**
+     * Соответственно по умолчанию все ячейки стоят с 0,
+     * когда вызываем один из 4 методов
+     * (1.поставить корабль, 2.промах, 3.попадание, 4.убил)
+     * значение в указанной ячейке меняется на нужный
+     */
     public void putBoat(int x, int y) {
-        map[x][y] = 1;
+        MAP[x][y] = 1;
         System.out.println("Корабль поставлен");
     }
 
     public void missBoat(int x, int y) {
-        map[x][y] = 2;
+        MAP[x][y] = 2;
         System.out.println("Промах");
     }
 
     public void hitBoat(int x, int y) {
-        map[x][y] = 3;
+        MAP[x][y] = 3;
         System.out.println("Ранил");
     }
 
     public void killBoat(int x, int y) {
-        map[x][y] = 4;
+        MAP[x][y] = 4;
         System.out.println("Убил");
     }
 
-    /** Вывод карты */
+    /**
+     * Вывод карты
+     */
     public void showMap() {
         System.out.println("Поле игрока " + player.name);
         for (int i = 0; i < 10; i++) {
-            System.out.println(Arrays.toString(map[i]));
+            System.out.println(Arrays.toString(MAP[i]));
         }
     }
 }
