@@ -73,7 +73,7 @@ public class Main {
             len--;
         } while (len > 0);
         else {
-            System.out.println("Неверная команда");
+            System.err.println("Неверная команда");
             return;
         }
         System.out.println();
@@ -101,7 +101,7 @@ public class Main {
                 num /= 10;
             }
         } else {
-            System.out.println("Неверная команда");
+            System.err.println("Неверная команда");
             return;
         }
         System.out.println("Сумма чисел - " + sum);
@@ -174,7 +174,7 @@ public class Main {
     static void month(int month, int ifOrSwitch) {
         if (ifOrSwitch == 1) {
             if (month <= 0 || month >= 13)
-                System.out.println("Такого месяца не бывает!");
+                System.err.println("Такого месяца не бывает!");
             else if (month <= 2 || month == 12)
                 System.out.println("Зима");
             else if (month <= 5)
@@ -189,7 +189,7 @@ public class Main {
                 case 3, 4, 5 -> System.out.println("Весна");
                 case 6, 7, 8 -> System.out.println("Лето");
                 case 9, 10, 11 -> System.out.println("Осень");
-                default -> System.out.println("Такого месяца не бывает!");
+                default -> System.err.println("Такого месяца не бывает!");
             }
         } else
             System.out.println("Неверная команда");
