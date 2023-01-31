@@ -32,7 +32,7 @@ public class Calc {
         }
     }
 
-    private void calcEngine(int firstNum, String symbol, int secondNum) {
+    private void calcEngine(int firstNum, String symbol, int secondNum) throws InvalidSymbolException {
         switch (symbol.charAt(0)) {
             case '+' -> System.out.println(firstNum + secondNum);
             case '-' -> System.out.println(firstNum - secondNum);
