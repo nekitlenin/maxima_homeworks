@@ -20,8 +20,8 @@ public class CopyWriter {
         try (BufferedReader reader = new BufferedReader(new FileReader(originalFile));
              BufferedWriter writer = new BufferedWriter(new FileWriter(copyFile = parseFileName(originalFile)));
              BufferedWriter writerLog = new BufferedWriter(new FileWriter("log.txt", true))) {
-            writeCopyFile(reader, writer);
-            writeLog(writerLog, originalFile, copyFile);
+            writeInCopyFile(reader, writer);
+            writeInLog(writerLog, originalFile, copyFile);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -33,7 +33,7 @@ public class CopyWriter {
      * @param writer экземпляр класса BufferedWriter с fileName = copyFile
      * @throws IOException если возникает ошибка ввода/вывода
      */
-    private void writeCopyFile(BufferedReader reader, BufferedWriter writer) throws IOException {
+    private void writeInCopyFile(BufferedReader reader, BufferedWriter writer) throws IOException {
         String text;
         while ((text = reader.readLine()) != null)
             writer.write(text + "\n");
@@ -46,7 +46,7 @@ public class CopyWriter {
      * @param copyFile имя скопированного файла
      * @throws IOException если возникает ошибка ввода/вывода
      */
-    private void writeLog(BufferedWriter writer, String originalFile, String copyFile) throws IOException {
+    private void writeInLog(BufferedWriter writer, String originalFile, String copyFile) throws IOException {
         LocalDateTime date = LocalDateTime.now();
         writer.write(date.format(DateTimeFormatter.ofPattern("dd.MM.uuuu HH:mm:ss")));
         writer.write(" | скопирован файл: " + originalFile + " -> " + copyFile + "\n");
@@ -54,7 +54,7 @@ public class CopyWriter {
 
     /**
      * Метод использует split(), чтобы распарсить входной параметр
-     * (убрать папки, оставить название файла, добавить "_копия.", оставить расширение файла)
+     * (убрать пакеты, оставить название файла, добавить "_копия.", оставить расширение файла)
      * @param name переменная, которая хранит путь/имя файла
      * @return "имяИсходника" + "_копия." + "расширениеФайла"
      */
