@@ -1,3 +1,5 @@
+package models;
+
 /**
  * Project: seaBattle
  *
@@ -7,7 +9,6 @@
  * Created with IntelliJ IDEA
  */
 public class Ship {
-
     final private EnumShip enumShip;
     private Player player;
 
