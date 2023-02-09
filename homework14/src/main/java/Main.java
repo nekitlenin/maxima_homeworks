@@ -24,11 +24,11 @@ public class Main {
         minMax(mas6);
     }
 
-    public static <T extends Number> MinMax<T, T> minMax(T[] mas) {
+    public static <T extends Number> MinMaxNumbers<T, T> minMax(T[] mas) {
         Arrays.sort(mas);
-        MinMax<T, T> minMax = new MinMax<>(mas[0], mas[mas.length - 1]);
+        MinMaxNumbers<T, T> minMaxNumbers = new MinMaxNumbers<>(mas[0], mas[mas.length - 1]);
         System.out.println(mas[0].getClass().getSimpleName()
-                + " min: " + minMax.getMin() + " max: " + minMax.getMax());
-        return minMax;
+                + " min: " + minMaxNumbers.getMin() + " max: " + minMaxNumbers.getMax());
+        return minMaxNumbers;
     }
 }

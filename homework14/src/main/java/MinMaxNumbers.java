@@ -6,11 +6,11 @@
  * Create: 08.02.2023 17:37 |
  * Created with IntelliJ IDEA
  */
-public class MinMax<I, A> {
+public class MinMaxNumbers<I, A> {
     private I min;
     private A max;
 
-    public MinMax(I min, A max) {
+    public MinMaxNumbers(I min, A max) {
         this.min = min;
         this.max = max;
     }
