@@ -1,0 +1,4 @@
+26.02.2023 14:34:57 | скопирован файл: src/test/resources/input.txt -> input_копия.txt
+26.02.2023 14:34:57 | скопирован файл: src/test/resources/input.txt -> input_копия.txt
+26.02.2023 14:37:16 | скопирован файл: src/test/resources/input.txt -> input_копия.txt
+26.02.2023 14:37:16 | скопирован файл: src/test/resources/input.txt -> input_копия.txt
