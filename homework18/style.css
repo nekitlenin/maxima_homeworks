@@ -1,0 +1,179 @@
+body {
+	font-family: 'Open Sans',sans-serif;
+	font-size: 1rem;
+}
+
+h1 {
+	font-size: 3.75rem;
+    font-weight: 400;
+    margin: 18px 0 0;
+}
+
+.header {
+	padding: 30px 40px 30px 0;
+}
+
+.title {
+	transform: translate(0px, 120%); /* скрытие заголовка */
+	opacity: 0;
+	transition: all 0.8s ease 0s;
+}
+
+.title.active {
+	transform: translate(0px, 0px);
+	opacity: 1;
+}
+
+.text {
+	text-decoration: underline;
+
+	transform: translate(0px, 120%); /* скрытие заголовка */
+	opacity: 0;
+	transition: all 0.8s ease 0s;
+}
+
+.text.active {
+	transform: translate(0px, 0px);
+	opacity: 1;
+	transition: all 0.8s ease 0.4s;
+}
+
+.education {
+	overflow: hidden;
+	transform: translate(0px, 120%); /* скрытие заголовка */
+	opacity: 0;
+	transition: all 0.8s ease 0s;
+}
+
+.education.active {
+	transform: translate(0px, 0px);
+	opacity: 1;
+}
+
+.qualification {
+	overflow: hidden;
+	transform: translate(0px, 120%); /* скрытие заголовка */
+	opacity: 0;
+	transition: all 0.8s ease 0s;
+}
+
+.qualification.active {
+	transform: translate(0px, 0px);
+	opacity: 1;
+}
+
+.additional {
+	overflow: hidden;
+	transform: translate(0px, 50%); /* скрытие заголовка */
+	opacity: 0;
+	transition: all 0.8s ease 0s;
+}
+
+.additional.active {
+	transform: translate(0px, 0px);
+	opacity: 1;
+}
+
+input {
+	position: fixed;
+	top: 5%;
+	right: 7%;
+	font-size: large;
+    transition: 0.5s;
+	border-radius: 50px;
+	border: none;
+	background-color: #16caca;
+	width: 150px;
+	height: 50px;
+}
+
+input:hover {
+    transform: scale(1.2); /* Масштаб увеличения */
+	background-color: white;
+	color: #16caca;
+}
+
+.bio {
+	position: relative;
+}
+
+.avatar {
+	float: left;
+	width: 300px;
+}
+
+.contacts {
+	float: left;
+	margin-left: 10px;
+	position: relative;
+	left:30px;
+}
+
+.talents {
+	float: left;
+	position: relative;
+	top: 0px;
+	left: 120px;
+}
+
+.talent {
+	display: list-item;
+	/* line-height: 29px; */
+}
+
+.name {
+	min-width: 60px;
+	line-height: 24px;
+}
+
+.talents .empty{
+	fill: none;
+	stroke-width: 7px;
+	stroke: #16caca
+}
+
+.talents svg {
+	width: 45px;
+	height: 15px;
+}
+
+.talents rect {
+	width: 300px;
+	height: 100px;
+	fill: #16caca;
+	stroke-width:3;
+	stroke:rgb(0,0,0)"
+}
+
+.border {
+	background-color: #16caca;
+	color: #16caca;
+	height: 1mm;
+	position: relative;
+	top: 5px;
+	clear: left;
+	border: none;
+}
+
+.portfolio {
+	clear: left;
+}
+
+.color {
+	color:#16caca;
+	border-color: #16caca;
+}
+
+.icon-url {
+
+	font-size: large;
+    transition: 0.5s; /* Время эффекта */
+}
+
+.icon-url:hover {
+    transform: scale(1.2); /* Масштаб увеличения */
+}
+
+ul {
+	line-height: 1.4;
+}
