@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="leopard" class="org.example.bean.Leopard"/>
+
+    <bean id="mangust" class="org.example.bean.Mangust">
+        <constructor-arg ref="leopard"/>
+    </bean>
+
+    <bean id="snake" class="org.example.bean.Snake">
+        <constructor-arg ref="mangust"/>
+    </bean>
+
+    <bean id="spider" class="org.example.bean.Spider">
+        <constructor-arg ref="snake"/>
+    </bean>
+
+    <bean id="bird" class="org.example.bean.Bird">
+        <constructor-arg ref="spider"/>
+    </bean>
+
+    <bean id="bug" class="org.example.bean.Bug">
+        <constructor-arg ref="bird"/>
+    </bean>
+
+    <bean id="leaf" class="org.example.bean.Leaf">
+        <constructor-arg ref="bug"/>
+    </bean>
+</beans>
