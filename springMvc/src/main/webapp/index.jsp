@@ -15,9 +15,6 @@
 <h2>Добавить новый контакт</h2>
 <form action="/contact/save" , method="post">
     <label>
-        <input type="text" name="id">
-    </label>Идентификатор<br>
-    <label>
         <input type="text" , name="firstName">
     </label>Имя<br>
     <label>
