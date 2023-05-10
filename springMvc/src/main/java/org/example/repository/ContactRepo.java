@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Project: springMvc
@@ -17,6 +18,7 @@ import java.util.HashMap;
 @Component
 public class ContactRepo {
     private HashMap<Long, Contact> contactRepo;
+    private static final AtomicInteger AUTO_ID = new AtomicInteger(1);
 
     public ContactRepo() {
         HashMap<Long, Contact> map = new HashMap<>();
@@ -53,6 +55,7 @@ public class ContactRepo {
     }
 
     public void saveContact(Contact contact) {
+        contact.setId((long) AUTO_ID.getAndIncrement());
         contactRepo.put(contact.getId(), contact);
     }
 
