@@ -34,7 +34,6 @@ public class ContactsController {
     @RequestMapping(value = "/contact/save", method = RequestMethod.POST)
     public String saveContact(Contact contact, Model model) {
         contactRepo.saveContact(contact);
-        ;
         model.addAttribute("contactList", contactRepo.getAllContact());
         return REDIRECT;
     }
