@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о пользователях</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <script th:src="@{/script.js}"></script>
+</head>
+<body>
+<h3>Таблица пользователей</h3>
+<table>
+    <tbody>
+    <tr>
+        <th>id</th>
+        <th>Логин</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Почта</th>
+        <th>Пароль</th>
+        <th>Номер телефона</th>
+        <th>Роль</th>
+        <th>Действие</th>
+    </tr>
+    <th:block th:each="user : ${users}">
+        <tr>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.password}"></td>
+            <td th:text="${user.number}"></td>
+            <td th:text="${user.role}"></td>
+            <td>
+                <a th:href="@{admin/edit/{userId}(userId = ${user.id})}">
+                    <button>Изменить 🔄</button>
+                </a>
+                <button th:attr="onclick='confirmDelete(\'' + ${user.id} + '\')'">Удалить ❌</button>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+<a th:href="@{admin/add}">
+    <button>Создать пользователя</button>
+</a>
+<a class="top-right" th:href="@{/logout}">
+    <button>Выйти</button>
+</a>
+</body>
+</html>

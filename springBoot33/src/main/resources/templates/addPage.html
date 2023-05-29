@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание пользователя</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+</head>
+<body>
+
+<fieldset>
+    <legend><h2>Добавить пользователя</h2></legend>
+    <form action="#" th:action="@{/admin/add}" th:object="${user}" method="post">
+        <div class="form-group">
+            <label for="userName">Логин</label>
+            <input type="text" name="userName" id="userName" th:field="*{username}">
+        </div>
+        <div class="form-group">
+            <label for="email">Почта</label>
+            <input type="email" name="email" id="email" th:field="*{email}">
+        </div>
+        <div class="form-group">
+            <label for="password">Пароль</label>
+            <input type="text" name="password" id="password" th:field="*{password}">
+        </div>
+        <div th:each="rol : ${roles}">
+            <label th:for="${rol.name()}" th:text="${rol.name()}"></label>
+            <input th:type="checkbox" th:name="${rol.name()}" th:field="*{role}" th:value="${rol.name()}">
+        </div>
+        <input class="button" type="submit" value="Изменить ✅">
+        <a th:href="@{/admin}">
+            <button>Отмена ❌"</button>
+        </a>
+    </form>
+</fieldset>
+</body>
+</html>

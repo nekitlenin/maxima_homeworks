@@ -1,0 +1,74 @@
+body {
+    background-color: black;
+    color: rgb(182, 233, 246);
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+fieldset {
+    margin: 1em;
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    max-width: 400px;
+}
+
+label {
+    display: block;
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+/*input[type="submit"] {*/
+/*    margin-top: 10px;*/
+/*    background-color: #657786;*/
+/*    color: rgb(182, 233, 246);*/
+/*}*/
+
+input {
+    flex: 1;
+    background-color: #657786;
+    color: rgb(182, 233, 246);
+    margin-top: 10px;
+}
+
+/* Стили для таблицы пользователей */
+table {
+    border: 3px solid black;
+}
+
+table th {
+    border: 1px solid gray;
+    background-color: #808080;
+    color: white;
+    padding: 5px;
+}
+
+table td {
+    border: 1px solid gray;
+    padding: 5px;
+}
+
+/* Стили для кнопок */
+.button {
+    margin-top: 10px;
+}
+
+button {
+    margin-top: 10px;
+}
+
+.form-group {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+}
+
+.top-right {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
