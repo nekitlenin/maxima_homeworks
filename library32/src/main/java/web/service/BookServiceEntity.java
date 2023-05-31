@@ -41,4 +41,8 @@ public class BookServiceEntity {
     public List<Author> findByAuthor(Optional<Author> author) {
         return repository.findByAuthor(author);
     }
+
+    public List<Book> findByTitle(String title) {
+        return repository.findByTitle(title);
+    }
 }

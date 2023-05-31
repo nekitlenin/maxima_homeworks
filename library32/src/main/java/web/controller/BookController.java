@@ -36,6 +36,11 @@ public class BookController {
         return ResponseEntity.ok(bookService.findAll().toString());
     }
 
+    @GetMapping("/findBooksByTitle/{title}")
+    public ResponseEntity<String> findByTitle(@PathVariable("title") String title) {
+        return ResponseEntity.ok(bookService.findByTitle(title).toString());
+    }
+
     @GetMapping("/findBooksById/{id}")
     public ResponseEntity<String> findById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(bookService.findById(id).toString());
