@@ -51,4 +51,10 @@ public class BookController {
         Optional<Author> author = authorService.findById(authorId);
         return ResponseEntity.ok(bookService.findByAuthor(author).toString());
     }
+
+    @GetMapping("/findTitleAndAuthorNameByBookId/{bookId}")
+    public ResponseEntity<String> findAuthorNameAndBooksByAuthorId(@PathVariable("bookId") Long bookId) {
+//        Optional<Author> author = authorService.findById(authorId);
+        return ResponseEntity.ok(bookService.findById(bookId).toString());
+    }
 }

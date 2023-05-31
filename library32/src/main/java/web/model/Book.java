@@ -23,6 +23,24 @@ import java.time.LocalDate;
                 @NamedAttributeNode("genre")
         }
 )
+@NamedEntityGraph(
+        name = "Book.titleAndAuthorName",
+        attributeNodes = {
+                @NamedAttributeNode("title"),
+                @NamedAttributeNode(value = "genre", subgraph = "Genre.name"),
+                @NamedAttributeNode(value = "author", subgraph = "Author.firstName")
+        },
+        subgraphs = {
+                @NamedSubgraph(
+                        name = "Author.firstName", attributeNodes = {
+                        @NamedAttributeNode("firstName")
+
+                }),
+                @NamedSubgraph(
+                        name = "Genre.name", attributeNodes = {
+                        @NamedAttributeNode("name")
+                })
+        })
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -40,11 +58,11 @@ public class Book {
     @Column(name = "date_create")
     private LocalDate dateCreate;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL/*, fetch = FetchType.LAZY*/)
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL/*, fetch = FetchType.LAZY*/)
     @JoinColumn(name = "genre_id")
     private Genre genre;
 }

@@ -1,5 +1,6 @@
 package web.repository;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
@@ -20,8 +21,11 @@ import java.util.Optional;
 public interface AuthorRepository extends CrudRepository<Author, Long> {
 
     @NonNull
+    @EntityGraph("Author.nameAndBooks")
     Optional<Author> findById(@NonNull Long id);
 
     @NonNull
     List<Author> findAll();
+
+
 }

@@ -23,10 +23,6 @@ import java.util.Optional;
 public interface BookRepository extends JpaRepository<Book, Long> {
 
     @NonNull
-    @EntityGraph("Book.authorsAndGenres")
-    Optional<Book> findById(@NonNull Long id);
-
-    @NonNull
     @EntityGraph(attributePaths = {"author", "genre"})
     List<Book> findAll();
 
@@ -35,4 +31,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @EntityGraph("Book.authorsAndGenres")
     List<Author> findByAuthor(Optional<Author> author);
+
+    @NonNull
+    @EntityGraph("Book.titleAndAuthorName")
+    Optional<Book> findById(@NonNull Long id);
 }
