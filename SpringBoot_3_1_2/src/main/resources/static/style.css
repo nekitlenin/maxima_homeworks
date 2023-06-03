@@ -1,0 +1,33 @@
+.custom-navbar {
+    margin-bottom: 20px;
+    background-color: #31373e;
+    height: 45px;
+}
+
+.custom-navbar a {
+    color: #82888b;
+}
+
+.custom-navbar a:hover {
+    color: #babcbe;
+    text-decoration: none;
+}
+
+.email {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.role {
+    color: #fff;
+    font-size: 18px;
+}
+
+.padding-left-zero {
+    padding-left: 0;
+}
+
+.padding-left-zero a {
+    height: 40px;
+}
