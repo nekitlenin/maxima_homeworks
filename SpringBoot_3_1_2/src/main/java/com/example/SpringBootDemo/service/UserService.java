@@ -29,11 +29,11 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public User get(long id) {
+    public User get(Long id) {
         return userRepository.findById(id).get();
     }
 
-    public void delete(long id) {
+    public void delete(Long id) {
         userRepository.deleteById(id);
     }
 

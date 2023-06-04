@@ -1,12 +1,15 @@
 package com.example.SpringBootDemo.controller;
 
+import com.example.SpringBootDemo.model.Post;
 import com.example.SpringBootDemo.model.User;
+import com.example.SpringBootDemo.service.PostService;
 import com.example.SpringBootDemo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -32,7 +35,7 @@ public class RestControllerTest {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> getUser(@PathVariable(name = "id") int id) {
+    public ResponseEntity<User> getUser(@PathVariable(name = "id") Long id) {
         User user = userService.get(id);
         System.out.println(user);
         return user != null ?
@@ -47,7 +50,7 @@ public class RestControllerTest {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable(name = "id") int id) {
+    public ResponseEntity<User> deleteUser(@PathVariable(name = "id") Long id) {
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

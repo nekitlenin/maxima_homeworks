@@ -23,6 +23,10 @@ public class PostService {
 
     private final PostRepository postRepository;
 
+    public List<Post> getUserPosts(Long userId) {
+        return postRepository.findByUserId(userId);
+    }
+
     public Post save(Post post) {
         return postRepository.save(post);
     }

@@ -26,15 +26,15 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    private User user;
+
     private String title;
 
     private String text;
 
     private LocalDate dateCreate;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    @ToString.Exclude
-    private User user;
 
 }
