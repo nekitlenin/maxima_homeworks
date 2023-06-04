@@ -8,16 +8,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
-public class DeffController {
+public class DefController {
 
     @GetMapping("/")
-    public String home(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
+    public String home(@RequestParam(name = "name", required = false, defaultValue = "World")
+                                   String name, Model model) {
         model.addAttribute("name", name);
         return "redirect:/login";
-    }
-
-    @GetMapping(value = "/login")
-    public String getLoginPage() {
-        return "login";
     }
 }

@@ -46,7 +46,7 @@
                 </a>
                 <a class='block nav-link active' data-toggle='pill'
                    href='#userPanel'>
-                    <p class='text-left text-capitalize'>USER</p>
+                    <p class='text-left text-capitalize'>PROFILE</p>
                 </a>
                 <a sec:authorize="hasAuthority('ROLE_USER') && !hasAuthority('ROLE_ADMIN')" class='block nav-link'
                    data-toggle='pill'
@@ -77,9 +77,9 @@
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Password</th>
                                     <th scope="col">Age</th>
                                     <th scope="col">Email</th>
+                                    <th scope="col">Password</th>
                                     <th scope="col">Roles</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -145,7 +145,7 @@
                                                 </button>
                                                 <button type='submit' id='modalEditBtn'
                                                         class='btn btn-primary success'
-                                                        data-dismiss='modal'>Edit
+                                                        data-dismiss='modal'>Edit ✏️
                                                 </button>
                                             </div>
                                         </div>
@@ -208,7 +208,7 @@
                                                 </button>
                                                 <button type='submit' id='modalDeleteBtn'
                                                         class='btn btn-primary success'
-                                                        data-dismiss='modal'>Delete
+                                                        data-dismiss='modal'>Delete ❌
                                                 </button>
                                             </div>
                                         </div>
@@ -260,7 +260,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group text-center">
-                                    <button id='addSubmit' type='submit' class='btn btn-success btn-lg'>Add new user
+                                    <button id='addSubmit' type='submit' class='btn btn-success btn-lg'>Add new user ✅
                                     </button>
                                 </div>
                             </div>
@@ -268,13 +268,16 @@
                     </div>
                 </div>
 
-                <!--        USER PANEL        -->
+                <!--        PROFILE PANEL        -->
 
                 <div class="tab-pane active" id="userPanel">
-                    <h1>User information-page</h1>
+                    <h1>
+                        <td th:text="${authUser.name}"></td>
+                        `s profile
+                    </h1>
                     <br>
                     <div class="container-fluid">
-                        <h5>About user</h5>
+                        <h5>About</h5>
                         <br>
                         <table class="table">
                             <thead>
@@ -299,7 +302,7 @@
                     </div>
                 </div>
 
-                <!--       ALL POSTS ADM         -->
+                <!--       ALL POSTS ADM PANEL         -->
 
                 <div class="tab-pane" id="allPostsAdm">
                     <h1>All posts</h1>
@@ -318,7 +321,7 @@
                                 <th scope="col">Action</th>
                             </tr>
                             </thead>
-                            <tbody id="postTableHere">
+                            <tbody id="postTableForAdmHere">
 
                             <div class='modal fade' id='deletePost'>
                                 <div class='modal-dialog modal-dialog-centered'>
@@ -355,9 +358,9 @@
                                             <div class='form-group text-center'>
                                                 <label><b>Text</b></label>
                                                 <label for='textToDeletePost'></label><input type='text'
-                                                                                              id='textToDeletePost'
-                                                                                              class='form-control'
-                                                                                              readonly='readonly'>
+                                                                                             id='textToDeletePost'
+                                                                                             class='form-control'
+                                                                                             readonly='readonly'>
                                             </div>
                                             <div class='form-group text-center'>
                                                 <label><b>Date</b></label>
@@ -371,7 +374,7 @@
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                                             </button>
                                             <button type="submit" id="modalDeletePostBtn"
-                                                    class="btn btn-primary success" data-dismiss="modal">Delete
+                                                    class="btn btn-primary success" data-dismiss="modal">Delete ❌
                                             </button>
                                         </div>
                                     </div>
@@ -382,7 +385,7 @@
                     </div>
                 </div>
 
-                <!--       ALL POSTS USR         -->
+                <!--       ALL POSTS USR PANEL        -->
 
                 <div class="tab-pane" id="allPostsUsr">
                     <h1>All posts</h1>
@@ -398,29 +401,22 @@
                                 <th scope="col">Title</th>
                                 <th scope="col">Text</th>
                                 <th scope="col">Date</th>
+                                <th scope="col">Action</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr th:each="post : ${posts}">
-                                <td th:text="${post.id}"></td>
-                                <td th:text="${post.user.name}"></td>
-                                <td th:text="${post.title}"></td>
-                                <td th:text="${post.text}"></td>
-                                <td th:text="${post.dateCreate}"></td>
-                            </tr>
-                            </tbody>
+                            <tbody id="postTableForUsrHere"></tbody>
                         </table>
                     </div>
                 </div>
 
-                <!--        MY POSTS        -->
+                <!--        MY POSTS PANEL       -->
 
                 <div class="tab-pane" id="myPosts">
                     <h1>My posts</h1>
                     <br>
                     <ul class="nav nav-tabs" role="tablist">
-                        <li><a class="nav-link active" data-toggle="tab" href="#table-users">Posts table</a></li>
-                        <li><a class="nav-link" data-toggle="tab" href="#add">New Post</a></li>
+                        <li><a class="nav-link active" data-toggle="tab" href="#table-posts">Posts table</a></li>
+                        <li><a class="nav-link" data-toggle="tab" href="#addPost">New Post</a></li>
                     </ul>
                     <div class="tab-content container-fluid">
                         <div role="tabpanel" class="tab-pane active" id="table-posts">
@@ -464,12 +460,6 @@
                                                                                                class='form-control'
                                                                                                required='required'>
                                                 </div>
-<!--                                                <div class='form-group text-center'>-->
-<!--                                                    <label><b>Date</b></label>-->
-<!--                                                    <label for='dateToEditPost'></label><input type='text'-->
-<!--                                                                                               id='dateToEditPost'-->
-<!--                                                                                               class='form-control'>-->
-<!--                                                </div>-->
                                             </div>
                                             <div class='modal-footer'>
                                                 <button type='button' class='btn btn-secondary'
@@ -478,7 +468,7 @@
                                                 </button>
                                                 <button type='submit' id='modalEditPostBtn'
                                                         class='btn btn-primary success'
-                                                        data-dismiss='modal'>Edit
+                                                        data-dismiss='modal'>Edit ✏️
                                                 </button>
                                             </div>
                                         </div>
@@ -536,7 +526,7 @@
                                                     Close
                                                 </button>
                                                 <button type="submit" id="modalDeleteMyPostBtn"
-                                                        class="btn btn-primary success" data-dismiss="modal">Delete
+                                                        class="btn btn-primary success" data-dismiss="modal">Delete ❌
                                                 </button>
                                             </div>
                                         </div>
@@ -545,27 +535,28 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="addPost">
-                        <br>
-                        <h5>Add new post</h5>
-                        <br>
-                        <div id="dropEmptyPost" class="col-3 offset-4">
-                            <div class='form-group text-center'>
-                                <label><b>Title</b></label>
-                                <label for='newTitle'></label><input id='newTitle' type='text' class='form-control'
-                                                                     placeholder='Title'
-                                                                     required='required'/>
-                            </div>
-                            <div class='form-group text-center'>
-                                <label><b>Text</b></label>
-                                <label for='newText'></label><input id='newText' type='text' class='form-control'
-                                                                    placeholder='Text'
-                                                                    required='required'>
-                            </div>
-                            <div class="form-group text-center">
-                                <button id='addPostSubmit' type='submit' class='btn btn-success btn-lg'>Add new post
-                                </button>
+                        <div role="tabpanel" class="tab-pane" id="addPost">
+                            <br>
+                            <h5>Add new post</h5>
+                            <br>
+                            <div id="dropEmptyPost" class="col-3 offset-4">
+                                <div class='form-group text-center'>
+                                    <label><b>Title</b></label>
+                                    <label for='newTitle'></label><input id='newTitle' type='text' class='form-control'
+                                                                         placeholder='Title'
+                                                                         required='required'/>
+                                </div>
+                                <div class='form-group text-center'>
+                                    <label><b>Text</b></label>
+                                    <label for='newText'></label><input id='newText' type='text' class='form-control'
+                                                                        placeholder='Text'
+                                                                        required='required'>
+                                </div>
+                                <div class="form-group text-center">
+                                    <button id='addPostSubmit' type='submit' class='btn btn-success btn-lg'>
+                                        Add new post ✅
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

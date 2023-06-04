@@ -16,10 +16,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
-    /**
-     * изменил GenerationType.AUTO -> GenerationType.IDENTITY
-     * getUsername() -> return email ?
-     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

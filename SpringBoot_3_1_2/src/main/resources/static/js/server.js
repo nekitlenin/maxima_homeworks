@@ -1,101 +1,94 @@
-function reloadTable() {
-    fetch('http://localhost:8080/rest/admin/').then(
-        response => {
-            response.json().then(
-                data => {
-                    let temp = "";
-                    data.forEach((u) => {
-                        temp += "<tr >";
-                        temp += "<td >" + u.id + "</td>";
-                        temp += "<td >" + u.name + "</td>";
-                        temp += "<td >" + u.password + "</td>";
-                        temp += "<td >" + u.age + "</td>";
-                        temp += "<td >" + u.email + "</td>";
-                        temp += "<td >" + u.role + "</td>"
-                        temp += "<td >" +
-                            "<a class='btn btn-info' role='button' onmouseover='fillEditModal(" + u.id + ")' data-toggle='modal' data-target='#editUser'>Edit</a>" +
-                            "<a class='btn btn-danger' role='button' onmouseover='fillDeleteModal(" + u.id + ")' data-toggle='modal' data-target='#deleteUser'>Delete</a>" +
-                            "</td>"
-                        temp += "</tr>";
-                    })
-                    $("#usersTableHere").empty();
-                    $("#usersTableHere").append(temp);
-                }
-            )
-        }
-    )
+function fillTable(url, tableHere, tableOf, callback) {
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            let temp = "";
+            if (tableOf === 'posts') {
+                data.forEach(p => {
+                    temp += "<tr>";
+                    temp += "<td>" + p.id + "</td>";
+                    temp += "<td>" + p.user.name + "</td>";
+                    temp += "<td>" + p.title + "</td>";
+                    temp += "<td>" + p.text + "</td>";
+                    temp += "<td>" + p.dateCreate + "</td>";
+                    if (callback !== null)
+                        temp += "<td>" + callback(p.id) + "</td>";
+                    temp += "</tr>";
+                });
+            } else if (tableOf === 'users') {
+                data.forEach(u => {
+                    temp += "<tr >";
+                    temp += "<td >" + u.id + "</td>";
+                    temp += "<td >" + u.name + "</td>";
+                    temp += "<td >" + u.age + "</td>";
+                    temp += "<td >" + u.email + "</td>";
+                    temp += "<td >" + u.password + "</td>";
+                    temp += "<td >" + u.role + "</td>"
+                    temp += "<td >" + callback(u.id) + "</td>"
+                    temp += "</tr>";
+                });
+            }
+            $(tableHere).empty().append(temp);
+        })
+
 }
 
-function reloadPostTable() {
-    fetch('http://localhost:8080/admin/post/').then(
-        response => {
-            response.json().then(
-                data => {
-                    let temp = "";
-                    data.forEach((p) => {
-                        temp += "<tr >";
-                        temp += "<td >" + p.id + "</td>";
-                        temp += "<td >" + p.user.name + "</td>";
-                        temp += "<td >" + p.title + "</td>";
-                        temp += "<td >" + p.text + "</td>";
-                        temp += "<td >" + p.dateCreate + "</td>";
-                        temp += "<td >" +
-                            "<a class='btn btn-danger' role='button' onmouseover='fillDeletePostModal(" + p.id + ")' " +
-                            "data-toggle='modal' data-target='#deletePost'>Delete</a>" +
-                            "</td>"
-                        temp += "</tr>";
-                    })
-                    $("#postTableHere").empty();
-                    $("#postTableHere").append(temp);
-                }
-            )
-        }
-    )
+function reloadUserTable() {
+    const url = 'http://localhost:8080/admin/';
+    const tableHere = '#usersTableHere';
+
+    fillTable(url, tableHere, 'users', (userId) => {
+        return "<a class='btn btn-info' role='button' onmouseover='fillEditUserModal(" + userId + ")'" +
+            " data-toggle='modal' data-target='#editUser'>Изменить ✏️</a>" +
+            "<a class='btn btn-danger' role='button' onmouseover='fillDeleteUserModal(" + userId + ")' " +
+            "data-toggle='modal' data-target='#deleteUser'>Удалить ❌</a>";
+    });
 }
 
-function reloadProfileTable() {
-    fetch('http://localhost:8080/user/post/profile/').then(
-        response => {
-            response.json().then(
-                data => {
-                    let temp = "";
-                    data.forEach((p) => {
-                        temp += "<tr >";
-                        temp += "<td >" + p.id + "</td>";
-                        temp += "<td >" + p.user.name + "</td>";
-                        temp += "<td >" + p.title + "</td>";
-                        temp += "<td >" + p.text + "</td>";
-                        temp += "<td >" + p.dateCreate + "</td>";
-                        temp += "<td >" +
-                            "<a class='btn btn-info' role='button' onmouseover='fillEditPostModal(" + p.id + ")' data-toggle='modal' data-target='#editPost'>Edit</a>" +
-                            "<a class='btn btn-danger' role='button' onmouseover='fillDeleteMyPostModal(" + p.id + ")' " +
-                            "data-toggle='modal' data-target='#deleteMyPost'>Delete</a>" +
-                            "</td>"
-                        temp += "</tr>";
-                    })
-                    // document.getElementById("list").innerHTML = temp;
-                    $("#profileTableHere").empty();
-                    $("#profileTableHere").append(temp);
-                }
-            )
-        }
-    )
+function reloadPostTableAdmRole() {
+    const url = 'http://localhost:8080/admin/post/';
+    const tableHere = '#postTableForAdmHere';
+
+    fillTable(url, tableHere, 'posts', (postId) => {
+        return "<a class='btn btn-danger' role='button' onmouseover='fillDeletePostModalAdmRole(" + postId + ")' " +
+            "data-toggle='modal' data-target='#deletePost'>Удалить ❌</a>";
+    });
 }
 
-function fillEditModal(userId) {
-    $.get("http://localhost:8080/rest/admin/" + userId, function (userJSON) {
+function reloadPostTableUsrRole() {
+    const url = 'http://localhost:8080/user/post/all/';
+    const tableHere = '#postTableForUsrHere';
+
+    fillTable(url, tableHere, 'posts', null)
+}
+
+function reloadPostTableOfUser() {
+    const url = 'http://localhost:8080/user/post/';
+    const tableHere = '#profileTableHere';
+
+    fillTable(url, tableHere, 'posts', (postId) => {
+        return "<a class='btn btn-info' role='button' onmouseover='fillEditPostModal(" + postId + ")'" +
+            " data-toggle='modal' data-target='#editPost'>Изменить ✏️</a>" +
+            "<a class='btn btn-danger' role='button' onmouseover='fillDeletePostModalUsrRole(" + postId + ")' " +
+            "data-toggle='modal' data-target='#deleteMyPost'>Удалить ❌</a>";
+    });
+}
+
+function fillEditUserModal(userId) {
+    $.get("http://localhost:8080/admin/" + userId, function (userJSON) {
         $('#idToEditUser').val(userJSON.id);
         $('#nameToEditUser').val(userJSON.name);
         $('#ageToEditUser').val(userJSON.age);
         $('#emailToEditUser').val(userJSON.email);
         $('#passwordToEditUser').val(userJSON.password);
-        if (userJSON.role.length == 2) {
+
+        if (userJSON.role.length === 2) {
             $("#ROLE_USER").prop('checked', true);
             $("#ROLE_ADMIN").prop('checked', true);
-        } else if (userJSON.role.length == 1 && userJSON.role[0] == "ROLE_USER") {
+        } else if (userJSON.role.includes("ROLE_USER")) {
             $("#ROLE_USER").prop('checked', true);
             $("#ROLE_ADMIN").prop('checked', false);
-        } else if (userJSON.role.length == 1) {
+        } else if (userJSON.role.includes("ROLE_ADMIN")) {
             $("#ROLE_USER").prop('checked', false);
             $("#ROLE_ADMIN").prop('checked', true);
         } else {
@@ -106,29 +99,29 @@ function fillEditModal(userId) {
 }
 
 function fillEditPostModal(postId) {
-    $.get("http://localhost:8080/user/post/profile/" + postId, function (postJSON) {
+    $.get("http://localhost:8080/user/post/" + postId, function (postJSON) {
         $('#idToEditPost').val(postJSON.id);
         $('#authorToEditPost').val(postJSON.user);
         $('#titleToEditPost').val(postJSON.title);
         $('#textToEditPost').val(postJSON.text);
-        // $('#dateToEditPost').val(postJSON.dateCreate);
+        $('#dateToEditPost').val(postJSON.dateCreate);
     });
 }
 
-function fillDeleteModal(userId) {
-    $.get("http://localhost:8080/rest/admin/" + userId, function (userJSON) {
+function fillDeleteUserModal(userId) {
+    $.get("http://localhost:8080/admin/" + userId, function (userJSON) {
         $('#idToDeleteUser').val(userJSON.id);
         $('#nameToDeleteUser').val(userJSON.name);
         $('#ageToDeleteUser').val(userJSON.age);
         $('#emailToDeleteUser').val(userJSON.email);
-        // изменил, чтобы в окне удаления роли показывались текстом, вместо чекбоксов
-        if (userJSON.role.length == 2) {
+
+        if (userJSON.role.length === 2) {
             $("#Delete_ROLE_USER").text("ROLE_USER");
             $("#Delete_ROLE_ADMIN").text("ROLE_ADMIN");
-        } else if (userJSON.role.length == 1 && userJSON.role[0] == "ROLE_USER") {
+        } else if (userJSON.role.includes("ROLE_USER")) {
             $("#Delete_ROLE_USER").text("ROLE_USER");
             $("#Delete_ROLE_ADMIN").text("");
-        } else if (userJSON.role.length == 1) {
+        } else if (userJSON.role.includes("ROLE_ADMIN")) {
             $("#Delete_ROLE_USER").text("");
             $("#Delete_ROLE_ADMIN").text("ROLE_ADMIN");
         } else {
@@ -138,7 +131,7 @@ function fillDeleteModal(userId) {
     });
 }
 
-function fillDeletePostModal(postId) {
+function fillDeletePostModalAdmRole(postId) {
     $.get("http://localhost:8080/admin/post/" + postId, function (postJSON) {
         $('#idToDeletePost').val(postJSON.id);
         $('#authorToDeletePost').val(postJSON.user.name);
@@ -148,17 +141,17 @@ function fillDeletePostModal(postId) {
     });
 }
 
-function fillDeleteMyPostModal(postId) {
-    $.get("http://localhost:8080/user/post/profile/" + postId, function (postJSON) {
+function fillDeletePostModalUsrRole(postId) {
+    $.get("http://localhost:8080/user/post/" + postId, function (postJSON) {
         $('#idToDeleteMyPost').val(postJSON.id);
         $('#authorToDeleteMyPost').val(postJSON.user.name);
         $('#titleToDeleteMyPost').val(postJSON.title);
         $('#textToDeleteMyPost').val(postJSON.text);
-        // $('#dateToDeleteMyPost').val(postJSON.dateCreate);
+        $('#dateToDeleteMyPost').val(postJSON.dateCreate);
     });
 }
 
-function reloadNewUserTable() {
+function reloadNewUserForm() {
     $('#newName').val('');
     $('#newAge').val('');
     $('#newEmail').val('');
@@ -167,7 +160,7 @@ function reloadNewUserTable() {
     $("#New_ROLE_ADMIN").prop('checked', false);
 }
 
-function reloadNewPostTable() {
+function reloadNewPostForm() {
     $('#newTitle').val('');
     $('#newText').val('');
 }
@@ -180,8 +173,6 @@ $(function () {
             checked.push($(this).val());
         });
 
-        // reloadNewUserTable();
-
         let user = {
             name: $("#newName").val(),
             age: $("#newAge").val(),
@@ -189,59 +180,17 @@ $(function () {
             password: $("#newPassword").val(),
             role: checked
         };
-        // let post = {
-        //     user: $("#newAuthor").val(),
-        //     text: $("#newText").val(),
-        //     title: $("#newTitle").val(),
-        //     dateCreate: $("#newDate").val()
-        // };
-        // let myPost = {
-        //     user: $("#newMyAuthor").val(),
-        //     text: $("#newMyText").val(),
-        //     title: $("#newMyTitle").val(),
-        //     dateCreate: $("#newMyDate").val()
-        // };
-        fetch('http://localhost:8080/rest/admin/', {
+
+        fetch('http://localhost:8080/admin', {
             method: "POST",
             credentials: 'same-origin',
             body: JSON.stringify(user),
-            headers: {
-                'content-type': 'application/json'
-            }
+            headers: {'content-type': 'application/json'}
+        }).then(() => {
+            reloadUserTable();
+            reloadNewUserForm();
+            reloadUserTable();
         })
-            .then(() => {
-                reloadTable();
-                reloadNewUserTable();
-            })
-        // fetch('http://localhost:8080/admin/post/', {
-        //     method: "POST",
-        //     credentials: 'same-origin',
-        //     body: JSON.stringify(post),
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     }
-        // })
-        //     .then(() => {
-        //         reloadTable();
-        //         reloadPostTable();
-        //         reloadProfileTable();
-        //         reloadNewPostTable();
-        //         reloadNewUserTable();
-        //     })
-        // fetch('http://localhost:8080/user/post/profile', {
-        //     method: "POST",
-        //     credentials: 'same-origin',
-        //     body: JSON.stringify(myPost),
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     }
-        // })
-        //     .then(() => {
-        //         reloadTable();
-        //         reloadProfileTable();
-        //         reloadNewPostTable();
-        //         reloadNewUserTable();
-        //     })
     })
 
     $('#addPostSubmit').on("click", function () {
@@ -249,55 +198,49 @@ $(function () {
         $('input:checkbox:checked').each(function () {
             checked.push($(this).val());
         });
+
         let myPost = {
             text: $("#newText").val(),
             title: $("#newTitle").val()
         };
+
         fetch('http://localhost:8080/user/post', {
             method: "POST",
             credentials: 'same-origin',
             body: JSON.stringify(myPost),
-            headers: {
-                'content-type': 'application/json'
-            }
+            headers: {'content-type': 'application/json'}
+        }).then(() => {
+            reloadPostTableOfUser();
+            reloadNewPostForm();
+            reloadPostTableOfUser()
         })
-            .then(() => {
-                reloadProfileTable();
-                reloadNewPostTable();
-                reloadProfileTable()
-            })
     })
 
     $('#modalDeleteBtn').on("click", function () {
-        fetch('http://localhost:8080/rest/admin/' + $('#idToDeleteUser').val(), {
+        fetch('http://localhost:8080/admin/' + $('#idToDeleteUser').val(), {
             method: "DELETE",
             credentials: 'same-origin',
+        }).then(() => {
+            reloadUserTable();
+            reloadPostTableAdmRole()
         })
-            .then(() => {
-                reloadTable();
-            })
     });
 
     $('#modalDeletePostBtn').on("click", function () {
         fetch('http://localhost:8080/admin/post/' + $('#idToDeletePost').val(), {
             method: "DELETE",
             credentials: 'same-origin',
-        })
-            .then(() => {
-                reloadPostTable();
-                // reloadProfileTable();
-            })
+        }).then(() => reloadPostTableAdmRole())
     });
 
     $('#modalDeleteMyPostBtn').on("click", function () {
-        fetch('http://localhost:8080/user/post/profile/' + $('#idToDeleteMyPost').val(), {
+        fetch('http://localhost:8080/user/post/' + $('#idToDeleteMyPost').val(), {
             method: "DELETE",
             credentials: 'same-origin',
+        }).then(() => {
+            reloadPostTableOfUser();
+            reloadPostTableUsrRole()
         })
-            .then(() => {
-                reloadPostTable();
-                reloadProfileTable();
-            })
     });
 
     $('#modalEditBtn').on("click", function () {
@@ -314,49 +257,43 @@ $(function () {
             password: $("#passwordToEditUser").val(),
             role: checked
         };
-        fetch('http://localhost:8080/rest/admin/', {
+
+        fetch('http://localhost:8080/admin/', {
             method: "PUT",
             credentials: 'same-origin',
             body: JSON.stringify(user),
-            headers: {
-                'content-type': 'application/json'
-            }
+            headers: {'content-type': 'application/json'}
+        }).then(() => {
+            reloadUserTable();
+            reloadPostTableOfUser();
         })
-            // .then(() => {
-            //     // Перенаправление пользователя на страницу /logout
-            //     window.location.href = "/logout";
-            // });
-            .then(() => {
-                reloadTable();
-                reloadProfileTable();
-                reloadNewUserTable();
-            })
     });
 
     $('#modalEditPostBtn').on("click", function () {
         let checked = [];
         $('input:checkbox:checked').each(function () {
-            checked.push($(this).val());
-        });
+                checked.push($(this).val());
+            }
+        );
 
         let post = {
             id: $('#idToEditPost').val(),
             title: $("#titleToEditPost").val(),
             text: $("#textToEditPost").val(),
         };
-        fetch('http://localhost:8080/user/post/profile/', {
+
+        fetch('http://localhost:8080/user/post/', {
             method: "PUT",
             credentials: 'same-origin',
             body: JSON.stringify(post),
-            headers: {
-                'content-type': 'application/json'
-            }
+            headers: {'content-type': 'application/json'}
+        }).then(() => {
+            reloadPostTableOfUser();
+            reloadPostTableUsrRole();
         })
-            .then(() => {
-                reloadProfileTable();
-            })
     });
 });
-reloadTable();
-reloadProfileTable()
-reloadPostTable();
+reloadUserTable();
+reloadPostTableOfUser()
+reloadPostTableAdmRole();
+reloadPostTableUsrRole()

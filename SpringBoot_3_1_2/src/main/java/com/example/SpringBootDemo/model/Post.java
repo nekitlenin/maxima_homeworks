@@ -22,6 +22,7 @@ import java.time.LocalDate;
 @Table(name = "posts")
 @Data
 public class Post {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,5 +37,4 @@ public class Post {
     private String text;
 
     private LocalDate dateCreate;
-
 }
