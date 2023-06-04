@@ -22,7 +22,9 @@ public class RestControllerTest {
     @PostMapping(value = "/")
     public ResponseEntity<User> create(@RequestBody User user) {
         userService.save(user);
+        System.out.println("*****create restcontroller***");
         System.out.println(user);
+        System.out.println("*****create restcontroller***");
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -45,7 +47,9 @@ public class RestControllerTest {
 
     @PutMapping(value = "/")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
+        System.out.println("*****update restcontroller***");
         userService.save(user);
+        System.out.println("*****update restcontroller***");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

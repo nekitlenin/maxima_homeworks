@@ -27,24 +27,18 @@ public class PostController {
 
     private final PostService postService;
 
-    @PostMapping(value = "/")
+    @PostMapping()
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
+        User user = (User) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        post.setUser(user);
         post.setDateCreate(LocalDate.now());
         postService.save(post);
+        System.out.println("*************createpost*controller***************");
         System.out.println(post);
+        System.out.println("*************createpost*controller***************");
         return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    @GetMapping(value = "/")
-    public ResponseEntity<List<Post>> getAllPost() {
-        List<Post> posts = postService.listAllPosts();
-        System.out.println("*********post*controller***************");
-        System.out.println(posts);
-//        System.out.println(posts.get(2).getUser());
-        System.out.println("**********post*controller**************");
-        return posts != null && !posts.isEmpty() ?
-                new ResponseEntity<>(posts, HttpStatus.OK) :
-                new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/{id}")
@@ -57,7 +51,9 @@ public class PostController {
     public ResponseEntity<Post> updatePost(@RequestBody Post post) {
         post.setDateCreate(LocalDate.now());
         post.setUser(post.getUser());
+        System.out.println("*****update postcontroller***");
         postService.save(post);
+        System.out.println("*****update postcontroller***");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -67,8 +63,16 @@ public class PostController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping(value = "/profile/")
+    public ResponseEntity<Post> createMyPost(@RequestBody Post post) {
+        post.setDateCreate(LocalDate.now());
+        postService.save(post);
+        System.out.println(post);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
     @GetMapping(value = "/profile/")
-    public ResponseEntity<List<Post>> getAllPostByUserId() {
+    public ResponseEntity<List<Post>> getAllMyPost() {
         User user = (User) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
@@ -80,16 +84,27 @@ public class PostController {
     }
 
     @PutMapping(value = "/profile")
-    public ResponseEntity<Post> updatePostByUser(@RequestBody Post post) {
-        post.setDateCreate(LocalDate.now());
-        post.setUser(post.getUser());
-        postService.save(post);
+    public ResponseEntity<Post> updateMyPost(@RequestBody Post post) {
+        Post editPost = postService.get(post.getId());
+        editPost.setDateCreate(LocalDate.now());
+        editPost.setTitle(post.getTitle());
+        editPost.setText(post.getText());
+        System.out.println("*********updateMyPost*********");
+        System.out.println(editPost);
+        System.out.println("*********updateMyPost*********");
+        postService.save(editPost);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "/profile/{id}")
-    public ResponseEntity<Post> getPostProfile(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<Post> getMyPost(@PathVariable(name = "id") Long id) {
         Post post = postService.get(id);
         return post != null ? new ResponseEntity<>(post, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping(value = "/profile/{id}")
+    public ResponseEntity<Post> deleteMyPost(@PathVariable(name = "id") Long id) {
+        postService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

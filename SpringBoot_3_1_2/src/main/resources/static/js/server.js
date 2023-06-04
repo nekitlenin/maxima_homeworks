@@ -18,7 +18,6 @@ function reloadTable() {
                             "</td>"
                         temp += "</tr>";
                     })
-                    // document.getElementById("list").innerHTML = temp;
                     $("#usersTableHere").empty();
                     $("#usersTableHere").append(temp);
                 }
@@ -28,7 +27,7 @@ function reloadTable() {
 }
 
 function reloadPostTable() {
-    fetch('http://localhost:8080/user/post/').then(
+    fetch('http://localhost:8080/admin/post/').then(
         response => {
             response.json().then(
                 data => {
@@ -41,13 +40,11 @@ function reloadPostTable() {
                         temp += "<td >" + p.text + "</td>";
                         temp += "<td >" + p.dateCreate + "</td>";
                         temp += "<td >" +
-                            // "<a class='btn btn-info' role='button' onmouseover='fillEditPostModal(" + p.id + ")' data-toggle='modal' data-target='#editPost'>Edit</a>" +
                             "<a class='btn btn-danger' role='button' onmouseover='fillDeletePostModal(" + p.id + ")' " +
                             "data-toggle='modal' data-target='#deletePost'>Delete</a>" +
                             "</td>"
                         temp += "</tr>";
                     })
-                    // document.getElementById("list").innerHTML = temp;
                     $("#postTableHere").empty();
                     $("#postTableHere").append(temp);
                 }
@@ -71,8 +68,8 @@ function reloadProfileTable() {
                         temp += "<td >" + p.dateCreate + "</td>";
                         temp += "<td >" +
                             "<a class='btn btn-info' role='button' onmouseover='fillEditPostModal(" + p.id + ")' data-toggle='modal' data-target='#editPost'>Edit</a>" +
-                            "<a class='btn btn-danger' role='button' onmouseover='fillDeletePostModal(" + p.id + ")' " +
-                            "data-toggle='modal' data-target='#deletePost'>Delete</a>" +
+                            "<a class='btn btn-danger' role='button' onmouseover='fillDeleteMyPostModal(" + p.id + ")' " +
+                            "data-toggle='modal' data-target='#deleteMyPost'>Delete</a>" +
                             "</td>"
                         temp += "</tr>";
                     })
@@ -114,7 +111,7 @@ function fillEditPostModal(postId) {
         $('#authorToEditPost').val(postJSON.user);
         $('#titleToEditPost').val(postJSON.title);
         $('#textToEditPost').val(postJSON.text);
-        $('#dateToEditPost').val(postJSON.dateCreate);
+        // $('#dateToEditPost').val(postJSON.dateCreate);
     });
 }
 
@@ -142,19 +139,22 @@ function fillDeleteModal(userId) {
 }
 
 function fillDeletePostModal(postId) {
-    $.get("http://localhost:8080/user/post/" + postId, function (postJSON) {
+    $.get("http://localhost:8080/admin/post/" + postId, function (postJSON) {
         $('#idToDeletePost').val(postJSON.id);
-        $('#authorToDeletePost').val(postJSON.user);
+        $('#authorToDeletePost').val(postJSON.user.name);
         $('#titleToDeletePost').val(postJSON.title);
         $('#textToDeletePost').val(postJSON.text);
         $('#dateToDeletePost').val(postJSON.dateCreate);
-        // if (user.role.includes("ROLE_ADMIN")) {
-        //     // Показывать кнопку "Edit" для администратора
-        //     $("#editPostBtn").show();
-        // } else {
-        //     // Скрыть кнопку "Edit" для неадминистратора
-        //     $("#editPostBtn").hide();
-        // }
+    });
+}
+
+function fillDeleteMyPostModal(postId) {
+    $.get("http://localhost:8080/user/post/profile/" + postId, function (postJSON) {
+        $('#idToDeleteMyPost').val(postJSON.id);
+        $('#authorToDeleteMyPost').val(postJSON.user.name);
+        $('#titleToDeleteMyPost').val(postJSON.title);
+        $('#textToDeleteMyPost').val(postJSON.text);
+        // $('#dateToDeleteMyPost').val(postJSON.dateCreate);
     });
 }
 
@@ -168,10 +168,8 @@ function reloadNewUserTable() {
 }
 
 function reloadNewPostTable() {
-    // $('#newAuthor').val();
     $('#newTitle').val('');
     $('#newText').val('');
-    // $('#newDate').val('');
 }
 
 $(function () {
@@ -181,6 +179,7 @@ $(function () {
         $('input:checkbox:checked').each(function () {
             checked.push($(this).val());
         });
+
         // reloadNewUserTable();
 
         let user = {
@@ -190,12 +189,18 @@ $(function () {
             password: $("#newPassword").val(),
             role: checked
         };
-        let post = {
-            user: $("#newAuthor").val(),
-            text: $("#newText").val(),
-            title: $("#newTitle").val(),
-            dateCreate: $("#newDate").val()
-        };
+        // let post = {
+        //     user: $("#newAuthor").val(),
+        //     text: $("#newText").val(),
+        //     title: $("#newTitle").val(),
+        //     dateCreate: $("#newDate").val()
+        // };
+        // let myPost = {
+        //     user: $("#newMyAuthor").val(),
+        //     text: $("#newMyText").val(),
+        //     title: $("#newMyTitle").val(),
+        //     dateCreate: $("#newMyDate").val()
+        // };
         fetch('http://localhost:8080/rest/admin/', {
             method: "POST",
             credentials: 'same-origin',
@@ -208,20 +213,58 @@ $(function () {
                 reloadTable();
                 reloadNewUserTable();
             })
-        fetch('http://localhost:8080/user/post/', {
+        // fetch('http://localhost:8080/admin/post/', {
+        //     method: "POST",
+        //     credentials: 'same-origin',
+        //     body: JSON.stringify(post),
+        //     headers: {
+        //         'content-type': 'application/json'
+        //     }
+        // })
+        //     .then(() => {
+        //         reloadTable();
+        //         reloadPostTable();
+        //         reloadProfileTable();
+        //         reloadNewPostTable();
+        //         reloadNewUserTable();
+        //     })
+        // fetch('http://localhost:8080/user/post/profile', {
+        //     method: "POST",
+        //     credentials: 'same-origin',
+        //     body: JSON.stringify(myPost),
+        //     headers: {
+        //         'content-type': 'application/json'
+        //     }
+        // })
+        //     .then(() => {
+        //         reloadTable();
+        //         reloadProfileTable();
+        //         reloadNewPostTable();
+        //         reloadNewUserTable();
+        //     })
+    })
+
+    $('#addPostSubmit').on("click", function () {
+        let checked = [];
+        $('input:checkbox:checked').each(function () {
+            checked.push($(this).val());
+        });
+        let myPost = {
+            text: $("#newText").val(),
+            title: $("#newTitle").val()
+        };
+        fetch('http://localhost:8080/user/post', {
             method: "POST",
             credentials: 'same-origin',
-            body: JSON.stringify(post),
+            body: JSON.stringify(myPost),
             headers: {
                 'content-type': 'application/json'
             }
         })
             .then(() => {
-                reloadTable();
-                reloadPostTable();
                 reloadProfileTable();
                 reloadNewPostTable();
-                reloadNewUserTable();
+                reloadProfileTable()
             })
     })
 
@@ -236,7 +279,18 @@ $(function () {
     });
 
     $('#modalDeletePostBtn').on("click", function () {
-        fetch('http://localhost:8080/user/post/' + $('#idToDeletePost').val(), {
+        fetch('http://localhost:8080/admin/post/' + $('#idToDeletePost').val(), {
+            method: "DELETE",
+            credentials: 'same-origin',
+        })
+            .then(() => {
+                reloadPostTable();
+                // reloadProfileTable();
+            })
+    });
+
+    $('#modalDeleteMyPostBtn').on("click", function () {
+        fetch('http://localhost:8080/user/post/profile/' + $('#idToDeleteMyPost').val(), {
             method: "DELETE",
             credentials: 'same-origin',
         })
@@ -287,10 +341,8 @@ $(function () {
 
         let post = {
             id: $('#idToEditPost').val(),
-            user: $('#authorToEditPost').val(),
             title: $("#titleToEditPost").val(),
             text: $("#textToEditPost").val(),
-            date: $("#dateToEditPost").val(),
         };
         fetch('http://localhost:8080/user/post/profile/', {
             method: "PUT",
@@ -301,7 +353,6 @@ $(function () {
             }
         })
             .then(() => {
-                reloadPostTable()
                 reloadProfileTable();
             })
     });
